@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Repositories\Eloquent;
+
+use App\Models\{{Model}};
+use App\Repositories\{{Model}}RepositoryInterface;
+
+class {{Model}}EloquentRepository extends BaseEloquentRepository implements {{Model}}RepositoryInterface
+{
+    public function __construct({{Model}} ${{model}})
+    {
+        $this->model = ${{model}};
+    }
+}

@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Services;
+
+
+use App\Repositories\Interfaces\{{Model}}RepositoryInterface;
+
+class {{Model}}Services
+{
+    use CrudService;
+
+    protected $repository;
+
+    public function __construct({{Model}}RepositoryInterface ${{model}}Repository)
+    {
+        $this->repository = ${{model}}Repository;
+    }
+}

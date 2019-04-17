@@ -25,5 +25,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        $this->app->singleton(
+            \App\Repositories\UserRepositoryInterface::class,
+            \App\Repositories\Eloquent\UserEloquentRepository::class
+        );
+        //---MORE BINDING---//
     }
 }

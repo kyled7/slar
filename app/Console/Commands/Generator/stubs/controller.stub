@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class {{Model}}Controller extends Controller
+{
+    protected ${{model}}Services;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param {{Model}}Services ${{model}}Services
+     */
+    public function __construct({{Model}}Services ${{model}}Services)
+    {
+        $this->middleware('guest');
+        $this->{{model}}Services = ${{model}}Services;
+    }
+}
