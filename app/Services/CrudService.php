@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 trait CrudService
 {
     public function index()

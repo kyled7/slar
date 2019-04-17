@@ -47,16 +47,16 @@ class ServicesGenerator extends BaseGenerator
             [
                 '{{Model}}',
                 '{{model}}',
-                '{{models}}'
+                '{{models}}',
             ],
             [
                 ucwords($name),
                 strtolower($name),
-                strtolower(str_plural($name))
+                strtolower(str_plural($name)),
             ],
             $this->getStubs('services')
         );
 
-        file_put_contents($this->getServicesPath() . ucwords($name) . 'Services.php', $serviceTemplate);
+        file_put_contents($this->getServicesPath().ucwords($name).'Services.php', $serviceTemplate);
     }
 }

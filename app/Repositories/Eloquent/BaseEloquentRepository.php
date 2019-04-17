@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Eloquent;
 
-
 use App\Repositories\BaseRepositoryInterface;
 
 abstract class BaseEloquentRepository implements BaseRepositoryInterface
@@ -14,7 +13,8 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     protected $model;
 
     /**
-     * Get All
+     * Get All.
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getAll()
@@ -23,7 +23,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Get one
+     * Get one.
      *
      * @param $id
      *
@@ -37,7 +37,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Create
+     * Create.
      *
      * @param array $attributes
      *
@@ -49,7 +49,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Update
+     * Update.
      *
      * @param       $id
      * @param array $attributes
@@ -64,11 +64,12 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
 
             return $result;
         }
+
         return false;
     }
 
     /**
-     * Delete
+     * Delete.
      *
      * @param $id
      *
@@ -87,9 +88,9 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Get data with paginate
+     * Get data with paginate.
      *
-     * @param int|NULL $perPage
+     * @param int|null $perPage
      * @param bool     $orderBy
      * @param array    $column
      *
@@ -109,7 +110,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Find where condition
+     * Find where condition.
      *
      * @param array $where
      * @param bool  $getFirst
@@ -127,7 +128,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Get paginate data with filter
+     * Get paginate data with filter.
      *
      * @param array    $filters
      * @param int|null $perPage
@@ -157,7 +158,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Get all data with filter
+     * Get all data with filter.
      *
      * @param array $filters
      * @param bool  $orderBy
@@ -183,7 +184,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Loop conditions
+     * Loop conditions.
      *
      * @param $filters
      * @param $query

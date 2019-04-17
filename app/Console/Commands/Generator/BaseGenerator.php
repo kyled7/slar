@@ -7,19 +7,20 @@ use Illuminate\Console\Command;
 abstract class BaseGenerator extends Command
 {
     /**
-     *
-     * get stub content
+     * get stub content.
      *
      * @param $type
+     *
      * @return bool|string
      */
     protected function getStubs($type) : string
     {
-        return file_get_contents(__DIR__ . "/stubs/$type.stub");
+        return file_get_contents(__DIR__."/stubs/$type.stub");
     }
 
     /**
-     * Get path for save controller files
+     * Get path for save controller files.
+     *
      * @return string
      */
     protected function getControllerPath() : string
@@ -28,7 +29,8 @@ abstract class BaseGenerator extends Command
     }
 
     /**
-     * Get path for save Repository files
+     * Get path for save Repository files.
+     *
      * @return string
      */
     protected function getRepositoriesPath() : string
@@ -37,7 +39,8 @@ abstract class BaseGenerator extends Command
     }
 
     /**
-     * Get path for update Repository files
+     * Get path for update Repository files.
+     *
      * @return string
      */
     protected function getBindServiceProviderPath() : string
@@ -46,7 +49,8 @@ abstract class BaseGenerator extends Command
     }
 
     /**
-     * Get path for save Services files
+     * Get path for save Services files.
+     *
      * @return string
      */
     protected function getServicesPath() : string
@@ -55,7 +59,8 @@ abstract class BaseGenerator extends Command
     }
 
     /**
-     * Get target name
+     * Get target name.
+     *
      * @return array|null|string
      */
     protected function getTargetName()
