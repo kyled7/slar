@@ -2,27 +2,27 @@
 
 namespace App\Repositories;
 
-
 interface BaseRepositoryInterface
 {
     /**
-     * Get all
+     * Get all.
+     *
      * @return mixed
      */
     public function getAll();
 
     /**
-     * Get one
+     * Get one.
      *
      * @param $id
-     *
      * @param array $relationships
+     *
      * @return mixed
      */
     public function find($id, array $relationships = []);
 
     /**
-     * Create
+     * Create.
      *
      * @param array $attributes
      *
@@ -31,7 +31,7 @@ interface BaseRepositoryInterface
     public function create(array $attributes);
 
     /**
-     * Update
+     * Update.
      *
      * @param       $id
      * @param array $attributes
@@ -41,7 +41,7 @@ interface BaseRepositoryInterface
     public function update($id, array $attributes);
 
     /**
-     * Delete
+     * Delete.
      *
      * @param $id
      *
@@ -50,9 +50,9 @@ interface BaseRepositoryInterface
     public function delete($id);
 
     /**
-     * Get data with paginate
+     * Get data with paginate.
      *
-     * @param int|NULL $perPage
+     * @param int|null $perPage
      * @param bool     $orderBy
      * @param array    $column
      *
@@ -61,7 +61,7 @@ interface BaseRepositoryInterface
     public function getPaginate(int $perPage = null, bool $orderBy = true, array $column = ['*']);
 
     /**
-     * Find where condition
+     * Find where condition.
      *
      * @param array $where
      * @param bool  $getFirst
@@ -71,7 +71,7 @@ interface BaseRepositoryInterface
     public function findWhere(array $where, bool $getFirst = false);
 
     /**
-     * Handle get all with filter
+     * Handle get all with filter.
      *
      * @param array $filters
      * @param bool  $orderBy
@@ -86,7 +86,7 @@ interface BaseRepositoryInterface
     );
 
     /**
-     * Handle get paginate with filter
+     * Handle get paginate with filter.
      *
      * @param array    $filters
      * @param int|null $perPage

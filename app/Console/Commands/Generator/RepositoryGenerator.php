@@ -45,7 +45,8 @@ class RepositoryGenerator extends BaseGenerator
     }
 
     /**
-     * Generate interface file
+     * Generate interface file.
+     *
      * @param $name
      */
     protected function generateInterface($name)
@@ -54,21 +55,22 @@ class RepositoryGenerator extends BaseGenerator
             [
                 '{{Model}}',
                 '{{model}}',
-                '{{models}}'
+                '{{models}}',
             ],
             [
                 ucwords($name),
                 strtolower($name),
-                strtolower(str_plural($name))
+                strtolower(str_plural($name)),
             ],
             $this->getStubs('repository_interface')
         );
 
-        file_put_contents($this->getRepositoriesPath() . ucwords($name) . 'RepositoryInterface.php', $repositoryInterfaceTemplate);
+        file_put_contents($this->getRepositoriesPath().ucwords($name).'RepositoryInterface.php', $repositoryInterfaceTemplate);
     }
 
     /**
-     * Generate repository file
+     * Generate repository file.
+     *
      * @param $name
      */
     protected function generateRepository($name)
@@ -77,17 +79,17 @@ class RepositoryGenerator extends BaseGenerator
             [
                 '{{Model}}',
                 '{{model}}',
-                '{{models}}'
+                '{{models}}',
             ],
             [
                 ucwords($name),
                 strtolower($name),
-                strtolower(str_plural($name))
+                strtolower(str_plural($name)),
             ],
             $this->getStubs('repository')
         );
 
-        file_put_contents($this->getRepositoriesPath() . '/Eloquent/' . ucwords($name) . 'EloquentInterface.php', $repositoryTemplate);
+        file_put_contents($this->getRepositoriesPath().'/Eloquent/'.ucwords($name).'EloquentInterface.php', $repositoryTemplate);
     }
 
     /**
@@ -102,9 +104,10 @@ class RepositoryGenerator extends BaseGenerator
         $bindService = file_get_contents($this->getBindServiceProviderPath());
         $key = '//---MORE BINDING---//';
 
-        $bind = '$this->app->singleton('.PHP_EOL."            \\App\\Repositories\\".$className."RepositoryInterface::class,".PHP_EOL."            \\App\\Repositories\\Eloquent\\".$className."EloquentRepository::class".PHP_EOL.'        );'.PHP_EOL.'        '.$key;
+        $bind = '$this->app->singleton('.PHP_EOL.'            \\App\\Repositories\\'.$className.'RepositoryInterface::class,'.PHP_EOL.'            \\App\\Repositories\\Eloquent\\'.$className.'EloquentRepository::class'.PHP_EOL.'        );'.PHP_EOL.'        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         file_put_contents($this->getBindServiceProviderPath(), $bindService);
+
         return true;
     }
 }

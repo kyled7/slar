@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Generator;
 
-
 class CrudGenerator extends BaseGenerator
 {
     /**
@@ -42,19 +41,20 @@ class CrudGenerator extends BaseGenerator
         $this->generateModel($targetName);
 
         $this->call('make:repository', [
-            'name' => $targetName
+            'name' => $targetName,
         ]);
 
         $this->call('make:services', [
-            'name' => $targetName
+            'name' => $targetName,
         ]);
 
-        $this->info("Create $targetName" . "Controller");
+        $this->info("Create $targetName".'Controller');
         $this->generateController($targetName);
     }
 
     /**
-     * Generate Controller file
+     * Generate Controller file.
+     *
      * @param $name
      */
     protected function generateController($name)
@@ -63,28 +63,29 @@ class CrudGenerator extends BaseGenerator
             [
                 '{{Model}}',
                 '{{model}}',
-                '{{models}}'
+                '{{models}}',
             ],
             [
                 ucwords($name),
                 strtolower($name),
-                strtolower(str_plural($name))
+                strtolower(str_plural($name)),
             ],
             $this->getStubs('controller')
         );
 
-        file_put_contents($this->getControllerPath() . ucwords($name) . 'Controller.php', $controllerTemplate);
+        file_put_contents($this->getControllerPath().ucwords($name).'Controller.php', $controllerTemplate);
     }
 
     /**
-     * Generate Model file
+     * Generate Model file.
+     *
      * @param $name
      */
     protected function generateModel($name)
     {
         $this->callSilent('make:model', [
-            'name' => 'Models/' . ucwords($name),
-            '--migration' => true
+            'name'        => 'Models/'.ucwords($name),
+            '--migration' => true,
         ]);
     }
 }
