@@ -26,8 +26,8 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      * Get one.
      *
      * @param $id
-     *
      * @param array $relationships
+     *
      * @return mixed
      */
     public function find($id, array $relationships = [])
@@ -166,10 +166,12 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Process filter
+     * Process filter.
+     *
      * @param array $filters
-     * @param bool $orderBy
+     * @param bool  $orderBy
      * @param array $column
+     *
      * @return \Illuminate\Database\Eloquent\Model|mixed
      */
     protected function processFilter(array $filters = [], bool $orderBy = true, array $column = ['*'])

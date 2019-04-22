@@ -21,6 +21,7 @@ abstract class BaseGenerator extends Command
 
         $this->filesystem = $filesystem;
     }
+
     /**
      * get stub content.
      *
@@ -30,7 +31,7 @@ abstract class BaseGenerator extends Command
      */
     protected function getStubs($type) : string
     {
-        return $this->filesystem->get(__DIR__ . "/stubs/$type.stub");
+        return $this->filesystem->get(__DIR__."/stubs/$type.stub");
     }
 
     /**
@@ -44,7 +45,8 @@ abstract class BaseGenerator extends Command
     }
 
     /**
-     * Get path for save View files
+     * Get path for save View files.
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -93,7 +95,7 @@ abstract class BaseGenerator extends Command
     }
 
     /**
-     * Replace & save file
+     * Replace & save file.
      *
      * @param $stub
      * @param $path
@@ -104,11 +106,11 @@ abstract class BaseGenerator extends Command
         $template = str_replace([
             '{{Model}}',
             '{{model}}',
-            '{{models}}'
+            '{{models}}',
         ], [
             ucwords($name),
             strtolower($name),
-            strtolower(Str::plural($name))
+            strtolower(Str::plural($name)),
         ],
             $this->getStubs($stub)
         );

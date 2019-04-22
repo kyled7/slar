@@ -34,6 +34,6 @@ class ServicesGenerator extends BaseGenerator
     protected function generateService($name)
     {
         $this->proceedAndSaveFile($name, 'services',
-            $this->getServicesPath() . ucwords($name) . 'Services.php');
+            $this->getServicesPath().ucwords($name).'Services.php');
     }
 }
