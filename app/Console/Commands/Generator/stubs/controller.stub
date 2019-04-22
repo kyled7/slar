@@ -1,7 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Create{{Model}}Request;
+use App\Http\Requests\Update{{Model}}Request;
+use App\Services\{{Model}}Services;
 use Illuminate\Http\Request;
 
 class {{Model}}Controller extends Controller
@@ -15,7 +19,103 @@ class {{Model}}Controller extends Controller
      */
     public function __construct({{Model}}Services ${{model}}Services)
     {
-        $this->middleware('guest');
         $this->{{model}}Services = ${{model}}Services;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $listData = $this->{{model}}Services->getPaginateWithFilter($request->all());
+        return view('admin.{{models}}.index', compact('listData', 'request'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.{{models}}.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Create{{Model}}Request|Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Create{{Model}}Request $request)
+    {
+        $this->{{model}}Services->create($request->validated());
+
+        return redirect()->route('admin.{{models}}.index')
+            ->withSuccess(trans('messages.create_success'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        ${{model}} = $this->{{model}}Services->read($id);
+
+        if (empty(${{model}})) {
+            abort(404);
+        }
+
+        return view('admin.{{models}}.show', compact('{{model}}'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        ${{model}} = $this->{{model}}Services->read($id);
+
+        if (empty(${{model}})) {
+            abort(404);
+        }
+
+        return view('admin.{{models}}.edit', compact('{{model}}'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Update{{Model}}Request|Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Update{{Model}}Request $request, $id)
+    {
+        $this->{{model}}Services->update($request->validated(), $id);
+        return redirect()->route('admin.{{models}}.index')
+            ->withSuccess(trans('messages.update_success'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->{{model}}Services->delete($id);
+        return redirect()->route('admin.{{models}}.index')
+            ->withSuccess(trans('messages.delete_success'));
     }
 }

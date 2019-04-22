@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands\Generator;
 
+
+use Illuminate\Support\Str;
+
 class CrudGenerator extends BaseGenerator
 {
     /**
@@ -17,16 +20,6 @@ class CrudGenerator extends BaseGenerator
      * @var string
      */
     protected $description = 'Create a full-set of Admin CRUD';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.
@@ -50,6 +43,9 @@ class CrudGenerator extends BaseGenerator
 
         $this->info("Create $targetName".'Controller');
         $this->generateController($targetName);
+
+        $this->info("Create views for $targetName");
+        $this->generateViews($targetName);
     }
 
     /**
@@ -59,21 +55,16 @@ class CrudGenerator extends BaseGenerator
      */
     protected function generateController($name)
     {
-        $controllerTemplate = str_replace(
-            [
-                '{{Model}}',
-                '{{model}}',
-                '{{models}}',
-            ],
-            [
-                ucwords($name),
-                strtolower($name),
-                strtolower(str_plural($name)),
-            ],
-            $this->getStubs('controller')
-        );
+        //Generate Requests
+        $this->callSilent('make:request', [
+            'name' => 'Create' . ucwords($name) . 'Request',
+        ]);
+        $this->callSilent('make:request', [
+            'name' => 'Update' . ucwords($name) . 'Request',
+        ]);
 
-        file_put_contents($this->getControllerPath().ucwords($name).'Controller.php', $controllerTemplate);
+        $this->proceedAndSaveFile($name, 'controller',
+            $this->getControllerPath() . ucwords($name) . 'Controller.php');
     }
 
     /**
@@ -84,8 +75,24 @@ class CrudGenerator extends BaseGenerator
     protected function generateModel($name)
     {
         $this->callSilent('make:model', [
-            'name'        => 'Models/'.ucwords($name),
+            'name' => 'Models/' . ucwords($name),
             '--migration' => true,
+            '--factory' => true
         ]);
+    }
+
+    protected function generateViews($name)
+    {
+        $viewPath = $this->getViewPath().strtolower(Str::plural($name));
+        //Create view folder
+        if (!$this->filesystem->isDirectory($viewPath)) {
+            $this->filesystem->makeDirectory($viewPath);
+        }
+
+        $this->proceedAndSaveFile($name, 'view_index', $viewPath . '/index.blade.php');
+        $this->proceedAndSaveFile($name, 'view_create', $viewPath . '/create.blade.php');
+        $this->proceedAndSaveFile($name, 'view_show', $viewPath . '/show.blade.php');
+        $this->proceedAndSaveFile($name, 'view_edit', $viewPath . '/edit.blade.php');
+
     }
 }

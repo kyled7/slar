@@ -19,16 +19,6 @@ class ServicesGenerator extends BaseGenerator
     protected $description = 'Create a services file';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -43,20 +33,7 @@ class ServicesGenerator extends BaseGenerator
 
     protected function generateService($name)
     {
-        $serviceTemplate = str_replace(
-            [
-                '{{Model}}',
-                '{{model}}',
-                '{{models}}',
-            ],
-            [
-                ucwords($name),
-                strtolower($name),
-                strtolower(str_plural($name)),
-            ],
-            $this->getStubs('services')
-        );
-
-        file_put_contents($this->getServicesPath().ucwords($name).'Services.php', $serviceTemplate);
+        $this->proceedAndSaveFile($name, 'services',
+            $this->getServicesPath() . ucwords($name) . 'Services.php');
     }
 }

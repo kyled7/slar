@@ -27,6 +27,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      *
      * @param $id
      *
+     * @param array $relationships
      * @return mixed
      */
     public function find($id, array $relationships = [])
@@ -106,7 +107,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
             $query = $query->orderByDESC('id');
         }
 
-        return $query->paginate(!is_null($perPage) ? $perPage : '');
+        return $query->paginate(!is_null($perPage) ? $perPage : self::PER_PAGE_DEFAULT);
     }
 
     /**
@@ -143,16 +144,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
         bool $orderBy = true,
         array $column = ['*']
     ) {
-        $query = $this->model;
-        if (!empty($column)) {
-            $query = $query->select($column);
-        }
-        if (@$filters['conditions'] && count($filters['conditions'])) {
-            $query = $this->loopCondition($filters, $query);
-        }
-        if ($orderBy) {
-            $query = $query->orderByDESC('id');
-        }
+        $query = $this->processFilter($filters, $orderBy, $column);
 
         return $query->paginate(!is_null($perPage) ? $perPage : self::PER_PAGE_DEFAULT);
     }
@@ -168,6 +160,20 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
      */
     public function getAllWithFilter(array $filters = [], bool $orderBy = true, array $column = ['*'])
     {
+        $query = $this->processFilter($filters, $orderBy, $column);
+
+        return $query->get();
+    }
+
+    /**
+     * Process filter
+     * @param array $filters
+     * @param bool $orderBy
+     * @param array $column
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     */
+    protected function processFilter(array $filters = [], bool $orderBy = true, array $column = ['*'])
+    {
         $query = $this->model;
         if (!empty($column)) {
             $query = $query->select($column);
@@ -180,7 +186,7 @@ abstract class BaseEloquentRepository implements BaseRepositoryInterface
             $query = $query->orderByDESC('id');
         }
 
-        return $query->get();
+        return $query;
     }
 
     /**

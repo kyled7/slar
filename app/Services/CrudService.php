@@ -28,4 +28,19 @@ trait CrudService
     {
         return $this->repository->delete($id);
     }
+
+    public function getPaginate(int $perPage = null, bool $orderBy = true, array $column = ['*'])
+    {
+        return $this->repository->getPaginate($perPage, $orderBy, $column);
+    }
+
+    public function getPaginateWithFilter(array $filters = [], int $perPage = null, bool $orderBy = true, array $column = ['*'])
+    {
+        return $this->repository->getPaginateWithFilter($filters, $perPage, $orderBy, $column);
+    }
+
+    public function getAllWithFilter(array $filters = [], bool $orderBy = true, array $column = ['*'])
+    {
+        return $this->repository->getAllWithFilter($filters, $orderBy, $column);
+    }
 }

@@ -19,16 +19,6 @@ class RepositoryGenerator extends BaseGenerator
     protected $description = 'Create a repository set';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -51,21 +41,8 @@ class RepositoryGenerator extends BaseGenerator
      */
     protected function generateInterface($name)
     {
-        $repositoryInterfaceTemplate = str_replace(
-            [
-                '{{Model}}',
-                '{{model}}',
-                '{{models}}',
-            ],
-            [
-                ucwords($name),
-                strtolower($name),
-                strtolower(str_plural($name)),
-            ],
-            $this->getStubs('repository_interface')
-        );
-
-        file_put_contents($this->getRepositoriesPath().ucwords($name).'RepositoryInterface.php', $repositoryInterfaceTemplate);
+        $this->proceedAndSaveFile($name, 'repository_interface',
+            $this->getRepositoriesPath() . ucwords($name) . 'RepositoryInterface.php');
     }
 
     /**
@@ -75,21 +52,8 @@ class RepositoryGenerator extends BaseGenerator
      */
     protected function generateRepository($name)
     {
-        $repositoryTemplate = str_replace(
-            [
-                '{{Model}}',
-                '{{model}}',
-                '{{models}}',
-            ],
-            [
-                ucwords($name),
-                strtolower($name),
-                strtolower(str_plural($name)),
-            ],
-            $this->getStubs('repository')
-        );
-
-        file_put_contents($this->getRepositoriesPath().'/Eloquent/'.ucwords($name).'EloquentInterface.php', $repositoryTemplate);
+        $this->proceedAndSaveFile($name, 'repository',
+            $this->getRepositoriesPath() . '/Eloquent/' . ucwords($name) . 'EloquentRepository.php');
     }
 
     /**
@@ -101,13 +65,12 @@ class RepositoryGenerator extends BaseGenerator
     {
         $className = ucwords($name);
 
-        $bindService = file_get_contents($this->getBindServiceProviderPath());
+        $bindService = $this->filesystem->get($this->getBindServiceProviderPath());
         $key = '//---MORE BINDING---//';
 
         $bind = '$this->app->singleton('.PHP_EOL.'            \\App\\Repositories\\'.$className.'RepositoryInterface::class,'.PHP_EOL.'            \\App\\Repositories\\Eloquent\\'.$className.'EloquentRepository::class'.PHP_EOL.'        );'.PHP_EOL.'        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
-        file_put_contents($this->getBindServiceProviderPath(), $bindService);
-
+        $this->filesystem->put($this->getBindServiceProviderPath(), $bindService);
         return true;
     }
 }
