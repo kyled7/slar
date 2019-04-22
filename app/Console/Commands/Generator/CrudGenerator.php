@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Generator;
 
-
 use Illuminate\Support\Str;
 
 class CrudGenerator extends BaseGenerator
@@ -57,14 +56,14 @@ class CrudGenerator extends BaseGenerator
     {
         //Generate Requests
         $this->callSilent('make:request', [
-            'name' => 'Create' . ucwords($name) . 'Request',
+            'name' => 'Create'.ucwords($name).'Request',
         ]);
         $this->callSilent('make:request', [
-            'name' => 'Update' . ucwords($name) . 'Request',
+            'name' => 'Update'.ucwords($name).'Request',
         ]);
 
         $this->proceedAndSaveFile($name, 'controller',
-            $this->getControllerPath() . ucwords($name) . 'Controller.php');
+            $this->getControllerPath().ucwords($name).'Controller.php');
     }
 
     /**
@@ -75,9 +74,9 @@ class CrudGenerator extends BaseGenerator
     protected function generateModel($name)
     {
         $this->callSilent('make:model', [
-            'name' => 'Models/' . ucwords($name),
+            'name'        => 'Models/'.ucwords($name),
             '--migration' => true,
-            '--factory' => true
+            '--factory'   => true,
         ]);
     }
 
@@ -89,10 +88,9 @@ class CrudGenerator extends BaseGenerator
             $this->filesystem->makeDirectory($viewPath);
         }
 
-        $this->proceedAndSaveFile($name, 'view_index', $viewPath . '/index.blade.php');
-        $this->proceedAndSaveFile($name, 'view_create', $viewPath . '/create.blade.php');
-        $this->proceedAndSaveFile($name, 'view_show', $viewPath . '/show.blade.php');
-        $this->proceedAndSaveFile($name, 'view_edit', $viewPath . '/edit.blade.php');
-
+        $this->proceedAndSaveFile($name, 'view_index', $viewPath.'/index.blade.php');
+        $this->proceedAndSaveFile($name, 'view_create', $viewPath.'/create.blade.php');
+        $this->proceedAndSaveFile($name, 'view_show', $viewPath.'/show.blade.php');
+        $this->proceedAndSaveFile($name, 'view_edit', $viewPath.'/edit.blade.php');
     }
 }
