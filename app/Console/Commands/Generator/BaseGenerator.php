@@ -55,6 +55,16 @@ abstract class BaseGenerator extends Command
     }
 
     /**
+     * Get path for save Tests files.
+     *
+     * @return string
+     */
+    protected function getTestsPath() : string
+    {
+        return base_path('tests/');
+    }
+
+    /**
      * Get path for save Repository files.
      *
      * @return string

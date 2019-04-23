@@ -1,0 +1,73 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\{{Model}};
+use App\Models\User;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class {{Model}}Test extends TestCase
+{
+    use RefreshDatabase;
+
+    /**
+     * Test add {{model}}
+     *
+     * @return void
+     */
+    public function testAdd{{Model}}Successful()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        ${{model}} = factory({{Model}}::class)->raw();
+        $this->post(route('admin.{{models}}.store'), ${{model}});
+
+        $this->assertDatabaseHas('{{models}}', ${{model}});
+    }
+
+    /**
+     * Test add {{model}} without authentication
+     * 
+     * Expect redirect location to login page
+     *
+     * @return void
+     */
+    public function testAdd{{Model}}WithoutAuthentication()
+    {
+        ${{model}} = factory({{Model}}::class)->raw();
+        $response = $this->post(route('admin.{{models}}.store'), ${{model}});
+
+        $response->assertLocation(route('login'));
+    }
+
+    /**
+     * Test update {{model}}
+     */
+    public function testUpdate{{Model}}()
+    {
+        $this->actingAs(factory(User::class)->create());
+        ${{model}} = factory({{Model}}::class)->create();
+
+        //TODO: change attribute follow your model's fields
+        //${{model}}->name = 'new name';
+
+        $this->put(route('admin.{{models}}.update', ${{model}}->id), ${{model}}->toArray());
+
+        $this->assertDatabaseHas('{{models}}', ${{model}}->toArray());
+    }
+
+    /**
+     * Test delete {{model}}
+     */
+    public function testDelete{{Model}}()
+    {
+        $this->actingAs(factory(User::class)->create());
+        ${{model}} = factory({{Model}}::class)->create();
+
+        $this->delete(route('admin.{{models}}.destroy', ${{model}}->id));
+
+        $this->assertDatabaseMissing('{{models}}', ${{model}}->toArray());
+    }
+}

@@ -45,6 +45,9 @@ class CrudGenerator extends BaseGenerator
 
         $this->info("Create views for $targetName");
         $this->generateViews($targetName);
+
+        $this->info("Create unit tests for $targetName");
+        $this->generateTest($targetName);
     }
 
     /**
@@ -80,6 +83,11 @@ class CrudGenerator extends BaseGenerator
         ]);
     }
 
+    /**
+     * Generate Views
+     *
+     * @param $name
+     */
     protected function generateViews($name)
     {
         $viewPath = $this->getViewPath().strtolower(Str::plural($name));
@@ -92,5 +100,11 @@ class CrudGenerator extends BaseGenerator
         $this->proceedAndSaveFile($name, 'view_create', $viewPath.'/create.blade.php');
         $this->proceedAndSaveFile($name, 'view_show', $viewPath.'/show.blade.php');
         $this->proceedAndSaveFile($name, 'view_edit', $viewPath.'/edit.blade.php');
+    }
+
+    protected function generateTest($name)
+    {
+        $testPath = $this->getTestsPath() . 'Feature/' . ucwords($name) . 'Test.php';
+        $this->proceedAndSaveFile($name, 'unittest', $testPath);
     }
 }
