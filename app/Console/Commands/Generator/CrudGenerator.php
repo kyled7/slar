@@ -84,7 +84,7 @@ class CrudGenerator extends BaseGenerator
     }
 
     /**
-     * Generate Views
+     * Generate Views.
      *
      * @param $name
      */
@@ -104,7 +104,7 @@ class CrudGenerator extends BaseGenerator
 
     protected function generateTest($name)
     {
-        $testPath = $this->getTestsPath() . 'Feature/' . ucwords($name) . 'Test.php';
+        $testPath = $this->getTestsPath().'Feature/'.ucwords($name).'Test.php';
         $this->proceedAndSaveFile($name, 'unittest', $testPath);
     }
 }
