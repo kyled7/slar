@@ -77,7 +77,7 @@ class ServicesGenerator extends BaseGenerator
         $bind = '$this->app->singleton(        
             \\App\\Services\\'.$className.'ServicesInterface::class,           
             \\App\\Services\\Production\\'.$className.'Services::class
-        );'. PHP_EOL .'
+        );'.PHP_EOL.'
         '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->filesystem->put($this->getBindServiceProviderPath(), $bindService);

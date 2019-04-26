@@ -95,7 +95,7 @@ abstract class BaseGenerator extends Command
     }
 
     /**
-     * Get path for route update
+     * Get path for route update.
      *
      * @return string
      */

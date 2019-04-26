@@ -29,11 +29,13 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         $listData = $this->userServices->getPaginateWithFilter($request->all());
+
         return view('admin.users.index', compact('listData', 'request'));
     }
 
@@ -51,6 +53,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateUserRequest|Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(CreateUserRequest $request)
@@ -64,7 +67,8 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -81,7 +85,8 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -99,12 +104,14 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateUserRequest|Request $request
-     * @param  int $id
+     * @param int                       $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUserRequest $request, $id)
     {
         $this->userServices->update($request->validated(), $id);
+
         return redirect()->route('admin.users.index')
             ->withSuccess(trans('messages.update_success'));
     }
@@ -112,12 +119,14 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $this->userServices->delete($id);
+
         return redirect()->route('admin.users.index')
             ->withSuccess(trans('messages.delete_success'));
     }
