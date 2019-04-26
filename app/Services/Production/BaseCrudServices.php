@@ -1,11 +1,11 @@
 <?php
+
 namespace App\Services\Production;
 
 use App\Services\BaseCrudServicesInterface;
 
 abstract class BaseCrudServices implements BaseCrudServicesInterface
 {
-
     /**
      * @var \App\Repositories\BaseRepositoryInterface
      */

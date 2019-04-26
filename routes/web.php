@@ -24,5 +24,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::resource('users', 'UserController');
 
-   //---RESOURCE ROUTES---//
+    //---RESOURCE ROUTES---//
 });

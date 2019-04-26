@@ -77,7 +77,7 @@ class RepositoryGenerator extends BaseGenerator
         $bind = '$this->app->singleton(
             \\App\\Repositories\\'.$className.'RepositoryInterface::class,
             \\App\\Repositories\\Eloquent\\'.$className.'EloquentRepository::class
-        );'. PHP_EOL .'
+        );'.PHP_EOL.'
         '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->filesystem->put($this->getBindServiceProviderPath(), $bindService);
