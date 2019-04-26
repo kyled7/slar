@@ -1,9 +1,16 @@
 <?php
+namespace App\Services\Production;
 
-namespace App\Services;
+use App\Services\BaseCrudServicesInterface;
 
-trait CrudService
+abstract class BaseCrudServices implements BaseCrudServicesInterface
 {
+
+    /**
+     * @var \App\Repositories\BaseRepositoryInterface
+     */
+    protected $repository;
+
     public function index()
     {
         return $this->repository->getAll();
@@ -34,13 +41,20 @@ trait CrudService
         return $this->repository->getPaginate($perPage, $orderBy, $column);
     }
 
-    public function getPaginateWithFilter(array $filters = [], int $perPage = null, bool $orderBy = true, array $column = ['*'])
-    {
+    public function getPaginateWithFilter(
+        array $filters = [],
+        int $perPage = null,
+        bool $orderBy = true,
+        array $column = ['*']
+    ) {
         return $this->repository->getPaginateWithFilter($filters, $perPage, $orderBy, $column);
     }
 
-    public function getAllWithFilter(array $filters = [], bool $orderBy = true, array $column = ['*'])
-    {
+    public function getAllWithFilter(
+        array $filters = [],
+        bool $orderBy = true,
+        array $column = ['*']
+    ) {
         return $this->repository->getAllWithFilter($filters, $orderBy, $column);
     }
 }

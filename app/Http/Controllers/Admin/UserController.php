@@ -3,26 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Create{{Model}}Request;
-use App\Http\Requests\Update{{Model}}Request;
-use App\Services\{{Model}}ServicesInterface;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Services\UserServicesInterface;
 use Illuminate\Http\Request;
 
-class {{Model}}Controller extends Controller
+class UserController extends Controller
 {
     /**
      * @var \App\Services\BaseCrudServicesInterface
      */
-    protected ${{model}}Services;
+    protected $userServices;
 
     /**
      * Create a new controller instance.
      *
-     * @param {{Model}}ServicesInterface ${{model}}Services
+     * @param UserServicesInterface $userServices
      */
-    public function __construct({{Model}}ServicesInterface ${{model}}Services)
+    public function __construct(UserServicesInterface $userServices)
     {
-        $this->{{model}}Services = ${{model}}Services;
+        $this->userServices = $userServices;
     }
 
     /**
@@ -33,8 +33,8 @@ class {{Model}}Controller extends Controller
      */
     public function index(Request $request)
     {
-        $listData = $this->{{model}}Services->getPaginateWithFilter($request->all());
-        return view('admin.{{models}}.index', compact('listData', 'request'));
+        $listData = $this->userServices->getPaginateWithFilter($request->all());
+        return view('admin.users.index', compact('listData', 'request'));
     }
 
     /**
@@ -44,20 +44,20 @@ class {{Model}}Controller extends Controller
      */
     public function create()
     {
-        return view('admin.{{models}}.create');
+        return view('admin.users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Create{{Model}}Request|Request $request
+     * @param CreateUserRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Create{{Model}}Request $request)
+    public function store(CreateUserRequest $request)
     {
-        $this->{{model}}Services->create($request->validated());
+        $this->userServices->create($request->validated());
 
-        return redirect()->route('admin.{{models}}.index')
+        return redirect()->route('admin.users.index')
             ->withSuccess(trans('messages.create_success'));
     }
 
@@ -69,13 +69,13 @@ class {{Model}}Controller extends Controller
      */
     public function show($id)
     {
-        ${{model}} = $this->{{model}}Services->read($id);
+        $user = $this->userServices->read($id);
 
-        if (empty(${{model}})) {
+        if (empty($user)) {
             abort(404);
         }
 
-        return view('admin.{{models}}.show', compact('{{model}}'));
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -86,26 +86,26 @@ class {{Model}}Controller extends Controller
      */
     public function edit($id)
     {
-        ${{model}} = $this->{{model}}Services->read($id);
+        $user = $this->userServices->read($id);
 
-        if (empty(${{model}})) {
+        if (empty($user)) {
             abort(404);
         }
 
-        return view('admin.{{models}}.edit', compact('{{model}}'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Update{{Model}}Request|Request $request
+     * @param UpdateUserRequest|Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Update{{Model}}Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $this->{{model}}Services->update($request->validated(), $id);
-        return redirect()->route('admin.{{models}}.index')
+        $this->userServices->update($request->validated(), $id);
+        return redirect()->route('admin.users.index')
             ->withSuccess(trans('messages.update_success'));
     }
 
@@ -117,8 +117,8 @@ class {{Model}}Controller extends Controller
      */
     public function destroy($id)
     {
-        $this->{{model}}Services->delete($id);
-        return redirect()->route('admin.{{models}}.index')
+        $this->userServices->delete($id);
+        return redirect()->route('admin.users.index')
             ->withSuccess(trans('messages.delete_success'));
     }
 }

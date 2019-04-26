@@ -65,8 +65,13 @@ class CrudGenerator extends BaseGenerator
             'name' => 'Update'.ucwords($name).'Request',
         ]);
 
-        $this->proceedAndSaveFile($name, 'controller',
-            $this->getControllerPath().ucwords($name).'Controller.php');
+        $this->proceedAndSaveFile(
+            $name,
+            'controller',
+            $this->getControllerPath().ucwords($name).'Controller.php'
+        );
+
+        $this->addRoute($name);
     }
 
     /**
@@ -102,9 +107,32 @@ class CrudGenerator extends BaseGenerator
         $this->proceedAndSaveFile($name, 'view_edit', $viewPath.'/edit.blade.php');
     }
 
+    /**
+     * Generate unit test files
+     *
+     * @param $name
+     */
     protected function generateTest($name)
     {
         $testPath = $this->getTestsPath().'Feature/'.ucwords($name).'Test.php';
         $this->proceedAndSaveFile($name, 'unittest', $testPath);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    protected function addRoute($name)
+    {
+        $route = $this->filesystem->get($this->getRoutePath());
+        $key = '//---RESOURCE ROUTES---//';
+
+        $bind = 'Route::resource(\'' . strtolower(Str::plural($name)) . '\', \''. ucwords($name) .
+            'Controller\');'.PHP_EOL.'        '.$key;
+        $route = str_replace($key, $bind, $route);
+        $this->filesystem->put($this->getRoutePath(), $route);
+
+        return true;
     }
 }

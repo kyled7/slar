@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Production;
 
 use App\Repositories\UserRepositoryInterface;
+use App\Services\UserServicesInterface;
 
-class UserServices
+class UserServices extends BaseCrudServices implements UserServicesInterface
 {
-    use CrudService;
-
-    protected $repository;
-
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->repository = $userRepository;

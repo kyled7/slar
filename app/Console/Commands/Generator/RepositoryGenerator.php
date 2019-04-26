@@ -41,8 +41,11 @@ class RepositoryGenerator extends BaseGenerator
      */
     protected function generateInterface($name)
     {
-        $this->proceedAndSaveFile($name, 'repository_interface',
-            $this->getRepositoriesPath().ucwords($name).'RepositoryInterface.php');
+        $this->proceedAndSaveFile(
+            $name,
+            'repository_interface',
+            $this->getRepositoriesPath().ucwords($name).'RepositoryInterface.php'
+        );
     }
 
     /**
@@ -52,8 +55,11 @@ class RepositoryGenerator extends BaseGenerator
      */
     protected function generateRepository($name)
     {
-        $this->proceedAndSaveFile($name, 'repository',
-            $this->getRepositoriesPath().'/Eloquent/'.ucwords($name).'EloquentRepository.php');
+        $this->proceedAndSaveFile(
+            $name,
+            'repository',
+            $this->getRepositoriesPath().'/Eloquent/'.ucwords($name).'EloquentRepository.php'
+        );
     }
 
     /**
@@ -68,7 +74,11 @@ class RepositoryGenerator extends BaseGenerator
         $bindService = $this->filesystem->get($this->getBindServiceProviderPath());
         $key = '//---MORE BINDING---//';
 
-        $bind = '$this->app->singleton('.PHP_EOL.'            \\App\\Repositories\\'.$className.'RepositoryInterface::class,'.PHP_EOL.'            \\App\\Repositories\\Eloquent\\'.$className.'EloquentRepository::class'.PHP_EOL.'        );'.PHP_EOL.'        '.$key;
+        $bind = '$this->app->singleton(
+            \\App\\Repositories\\'.$className.'RepositoryInterface::class,
+            \\App\\Repositories\\Eloquent\\'.$className.'EloquentRepository::class
+        );'. PHP_EOL .'
+        '.$key;
         $bindService = str_replace($key, $bind, $bindService);
         $this->filesystem->put($this->getBindServiceProviderPath(), $bindService);
 

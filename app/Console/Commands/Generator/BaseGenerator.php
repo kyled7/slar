@@ -95,6 +95,16 @@ abstract class BaseGenerator extends Command
     }
 
     /**
+     * Get path for route update
+     *
+     * @return string
+     */
+    protected function getRoutePath() : string
+    {
+        return base_path('routes/web.php');
+    }
+
+    /**
      * Get target name.
      *
      * @return array|null|string

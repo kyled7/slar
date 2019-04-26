@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         factory(\App\Models\User::class)->create([
             'name'  => 'S-Laravel Admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@slar.io',
         ]);
     }
 }

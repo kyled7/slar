@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\{{Model}};
-use App\Models\User;
+use App\Models\Staff;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,7 +19,7 @@ class {{Model}}Test extends TestCase
      */
     public function testAdd{{Model}}Successful()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(factory(Staff::class)->create());
 
         ${{model}} = factory({{Model}}::class)->raw();
         $this->post(route('admin.{{models}}.store'), ${{model}});
@@ -47,7 +47,7 @@ class {{Model}}Test extends TestCase
      */
     public function testUpdate{{Model}}()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(factory(Staff::class)->create());
         ${{model}} = factory({{Model}}::class)->create();
 
         //TODO: change attribute follow your model's fields
@@ -63,7 +63,7 @@ class {{Model}}Test extends TestCase
      */
     public function testDelete{{Model}}()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(factory(Staff::class)->create());
         ${{model}} = factory({{Model}}::class)->create();
 
         $this->delete(route('admin.{{models}}.destroy', ${{model}}->id));
