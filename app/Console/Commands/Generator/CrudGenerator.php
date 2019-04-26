@@ -128,8 +128,8 @@ class CrudGenerator extends BaseGenerator
         $route = $this->filesystem->get($this->getRoutePath());
         $key = '//---RESOURCE ROUTES---//';
 
-        $bind = 'Route::resource(\'' . strtolower(Str::plural($name)) . '\', \''. ucwords($name) .
-            'Controller\');'.PHP_EOL.'        '.$key;
+        $bind = 'Route::resource(\'' . strtolower(Str::plural($name)) . '\', \''. ucwords($name) .'Controller\');'
+        . PHP_EOL . '   ' . $key;
         $route = str_replace($key, $bind, $route);
         $this->filesystem->put($this->getRoutePath(), $route);
 

@@ -23,7 +23,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/', 'DashboardController@index');
 
     Route::resource('users', 'UserController');
-        Route::resource('users', 'UserController');
-        Route::resource('users', 'UserController');
-        //---RESOURCE ROUTES---//
+
+   //---RESOURCE ROUTES---//
 });
