@@ -3,8 +3,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="{{ url('/') }}">
-        <img class="navbar-brand-full" src="svg/modulr.svg" width="89" height="25" alt="Logo">
-        <img class="navbar-brand-minimized" src="svg/modulr-icon.svg" width="30" height="30" alt="Logo">
+        <img class="navbar-brand-full" src="{{ asset('images/logo.svg') }}" width="89" height="25" alt="S-Laravel">
+        <img class="navbar-brand-minimized" src="{{ asset('images/logo-min.svg') }}" width="30" height="30" alt="SLar">
     </a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
     <ul class="nav navbar-nav ml-auto mr-3">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <img class="img-avatar mx-1" src="{{Auth::user()->avatar_url}}">
+                <img class="img-avatar mx-1" src="{{ Auth::user()->avatar ?:     asset('images/default_avatar.svg') }}">
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow mt-2">
                 <a class="dropdown-item">

@@ -10,21 +10,23 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/admin.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-<div id="app">
     @include('layouts.admin.header')
     <div class="app-body">
         @include('layouts.admin.sidebar')
         <main class="main">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">@yield('page_title', __('Admin'))</li>
+            </ol>
             <div class="container-fluid">
                 <div class="animated fadeIn">
                     @yield('content')
@@ -32,5 +34,5 @@
             </div>
         </main>
     </div>
-</div>
+    @include('layouts.admin.footer')
 </body>
